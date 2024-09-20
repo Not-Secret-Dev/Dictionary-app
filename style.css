@@ -1,65 +1,81 @@
-body {
-  font-family: Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+header h1 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.heading {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f4f4f4;
+  gap: 15px;
 }
 
-.container {
+header nav {
+  display: flex;
+  justify-content: center;
+}
+
+header nav input {
+  margin-top: 10px;
+  width: 70vmin;
+  height: 7vmin;
+  outline: none;
+  border: 2px solid;
+  border-right: none;
+  border-radius: 100px 0 0 100px;
+  font-size: large;
+  font-weight: normal;
+}
+
+header nav button {
+  margin-top: 10px;
+  width: 10vmin;
+  height: 7.6vmin;
+  outline: none;
+  border-left: none;
+  border: 2px solid;
+  border-radius: 0 100px 100px 0;
+  font-size: medium;
+  font-weight: normal;
+}
+
+.result-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-box {
   text-align: center;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 1);
-  border-radius: 8px;
-}
-
-input {
-  padding: 10px;
-  width: 200px;
-  margin-right: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
 }
 
 #result {
-  margin-top: 20px;
-  text-align: left;
-}
-
-.loader {
-  border: 20px solid grey;
-  border-top: 20px solid #3498db;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  animation: spin 1s linear infinite;
+  margin: 24px;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid rgba(0, 0, 0, 0.123);
+  box-shadow: 7px 7px 8px grey;
+  border-radius: 24px;
+  width: 100vmin;
+  height: 60vmin;
+  text-align: center;
 }
 
 .disappear {
-    display: none;
+  display: none;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+button:hover {
+  cursor: pointer;
 }

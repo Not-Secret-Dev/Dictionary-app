@@ -1,48 +1,53 @@
-document.getElementById("search-btn").addEventListener("click", function () {
-  const word = document.getElementById("word-input").value;
-  const dictionaryContainer = document.querySelector(".container");
-  const loader = document.querySelector(".loader");
+document.addEventListener("DOMContentLoaded", () => {
+  const resultContainer = document.querySelector("#result");
+  const searchBox = document.getElementById("search-box");
+  const searchBtn = document.getElementById("search-btn");
 
-  if (!word) {
-    alert("Please enter a word");
-    return;
-  }
+  const BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
-  fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-    .then((response) => response.json())
-    .then((data) => {
-      dictionaryContainer.classList.add("disappear");
-      loader.classList.remove("disappear");
-      setTimeout(() => {
-        dictionaryContainer.classList.remove("disappear");
-        loader.classList.add("disappear");
-        displayResult(data);
-      }, 1500);
-    })
-    .catch((error) => {
-      document.getElementById("result").innerHTML =
-        "<p>Word not found. Please try again.</p>";
-      console.error("Error fetching data:", error);
-    });
+  searchBtn.addEventListener("click", () => {
+    const word = searchBox.value;
+    if (word) {
+      fetch(`${BASE_URL}${word}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          displayData(resultContainer, data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      alert("Please enter a word to search");
+      return;
+    }
+  });
 });
 
-function displayResult(data) {
-  const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = ""; // Clear previous results
+const displayData = (resultContainer, data) => {
+  resultContainer.innerText = "";
 
-  const wordData = data[0];
-  const word = `<h2>${wordData.word}</h2>`;
-  const phonetics = wordData.phonetics[0]
-    ? `<p><strong>Pronunciation:</strong> ${wordData.phonetics[0].text}</p>`
-    : "";
-  const meanings = wordData.meanings
-    .map((meaning) => {
-      const definitions = meaning.definitions
-        .map((def) => `<li>${def.definition}</li>`)
-        .join("");
-      return `<p><strong>${meaning.partOfSpeech}</strong></p><ul>${definitions}</ul>`;
-    })
-    .join("");
+  if (data && data.length > 0) {
+    const wordData = data[0];
+    const definition = wordData.meanings[0].definitions[0].definition;
+    const phonetic = wordData.phonetic
+      ? wordData.phonetic
+      : "No phonetics found!";
+    let htmlContent = `
+        <h2>Word : ${wordData.word}</h2>
+        <p><strong>Phonetic : </strong>${phonetic}</p>
+        <p><strong>Definition : </strong>${definition}</p>
+        <ul>
+      `;
 
-  resultDiv.innerHTML = word + phonetics + meanings;
-}
+    wordData.meanings.forEach((meaning) => {
+      meaning.definitions.forEach((def) => {
+        htmlContent += `<li>${def.definition}</li>`;
+      });
+    });
+
+    htmlContent += `</ul>`;
+
+    resultContainer.innerHTML = htmlContent;
+  } else {
+    resultContainer.innerText = "No results found!";
+  }
+};

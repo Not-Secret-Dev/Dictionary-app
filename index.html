@@ -1,19 +1,30 @@
+<!-- style="display: none;" -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Dictionary App</title>
+    <title>Dictionary</title>
   </head>
   <body>
-    <div class="loader disappear"></div>
-    <div class="container">
-      <h1>Dictionary</h1>
-      <input type="text" placeholder="Enter a word" id="word-input" />
-      <button id="search-btn">Search</button>
-      <div id="result"></div>
-    </div>
+    <header>
+      <div class="heading">
+        <img src="./Assets/Icons/drawing.png" alt="Dictionary" height="50" />
+        <h1>Dictionary</h1>
+      </div>
+      <hr style="opacity: 0.3" />
+      <nav>
+        <input type="text" id="search-box" placeholder="    Enter your word" />
+        <button id="search-btn">search</button>
+      </nav>
+    </header>
+    <main>
+      <div class="result-container">
+        <div id="result"></div>
+      </div>
+    </main>
     <script src="app.js"></script>
   </body>
 </html>
